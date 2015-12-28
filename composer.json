@@ -1,0 +1,24 @@
+{
+    "name": "lc5/first-fit",
+    "description": "First-fit decreasing algorithm implementation",
+    "keywords": ["first-fit firstfit first fit"],
+    "homepage": "https://github.com/Lc5/FirstFit",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Łukasz Krzyszczak",
+            "email": "lukasz.krzyszczak@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lc5\\": "src/"
+        }
+    }
+}
