@@ -42,27 +42,22 @@ class FirstFit
                 $packages[] = new Package($packageDetails);
             }
 
-            $packed = false;
-
             foreach ($packages as $package) {
                 if ($this->fits($item, $package)) {
                     $package->addItem($item);
-                    $packed = true;
-                    break;
+                    continue 2; //go to next item
                 } else if ($package->isEmpty()) {
                     return false;
                 }
             }
 
-            if (!$packed) {
-                $newPackage = new Package($packageDetails);
-                $packages[] = $newPackage;
+            $newPackage = new Package($packageDetails);
 
-                if ($this->fits($item, $newPackage)) {
-                    $newPackage->addItem($item);
-                } else {
-                    return false;
-                }
+            if ($this->fits($item, $newPackage)) {
+                $newPackage->addItem($item);
+                $packages[] = $newPackage;
+            } else {
+                return false;
             }
         }
 
