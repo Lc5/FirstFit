@@ -111,6 +111,20 @@ class Package
     /**
      * @return int
      */
+    public function getItemsVolume()
+    {
+        $itemsVolume = 0;
+
+        foreach ($this->items as $item) {
+            $itemsVolume += $item->getVolume();
+        }
+
+        return $itemsVolume;
+    }
+
+    /**
+     * @return int
+     */
     public function getItemsWeight()
     {
         $itemsWeight = 0;

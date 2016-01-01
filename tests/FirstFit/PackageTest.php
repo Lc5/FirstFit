@@ -48,6 +48,15 @@ class PackageTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals([$itemOne, $itemTwo], $this->package->getItems());
     }
 
+    public function testGetItemsVolume()
+    {
+        $this->package
+            ->addItem(new Item(1, 2, 3, 50))
+            ->addItem(new Item(4, 5, 6, 60));
+
+        $this->assertSame(126, $this->package->getItemsVolume());
+    }
+
     public function testGetItemsWeight()
     {
         $this->package
