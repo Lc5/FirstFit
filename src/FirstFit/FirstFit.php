@@ -42,7 +42,7 @@ class FirstFit
             }
 
             foreach ($packages as $package) {
-                if ($this->fits($item, $package)) {
+                if ($this->fittingStrategy->fits($item, $package)) {
                     $package->addItem($item);
                     continue 2; //go to next item
                 } else if ($package->isEmpty()) {
@@ -52,7 +52,7 @@ class FirstFit
 
             $newPackage = new Package($packageDetails);
 
-            if ($this->fits($item, $newPackage)) {
+            if ($this->fittingStrategy->fits($item, $newPackage)) {
                 $newPackage->addItem($item);
                 $packages[] = $newPackage;
             } else {
@@ -71,15 +71,5 @@ class FirstFit
         usort($items, function(Item $itemOne, Item $itemTwo) {
             return $itemTwo->getVolume() - $itemOne->getVolume();
         });
-    }
-
-    /**
-     * @param Item $item
-     * @param Package $package
-     * @return bool
-     */
-    private function fits(Item $item, Package $package)
-    {
-        return $this->fittingStrategy->fits($item, $package);
     }
 }
