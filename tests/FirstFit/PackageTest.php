@@ -31,6 +31,11 @@ class PackageTest extends \PHPUnit_Framework_TestCase
         $this->assertSame(654, $this->package->getMaxWeight());
     }
 
+    public function testGetVolume()
+    {
+        $this->assertSame(44253432, $this->package->getVolume());
+    }
+
     public function testAddItem()
     {
         $itemOne = new Item(1, 2, 3, 50);

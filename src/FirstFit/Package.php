@@ -93,6 +93,14 @@ class Package
     }
 
     /**
+     * @return int
+     */
+    public function getVolume()
+    {
+        return $this->width * $this->height * $this->depth;
+    }
+
+    /**
      * @return array
      */
     public function getItems()
