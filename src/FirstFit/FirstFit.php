@@ -25,7 +25,6 @@ class FirstFit
         $this->fittingStrategy = $fittingStrategy;
     }
 
-
     /**
      * @param array $items
      * @param PackageDetails $packageDetails
