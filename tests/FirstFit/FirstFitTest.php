@@ -13,17 +13,17 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
     public function testPackNoItems()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
 
         $firstFit = new FirstFit($fittingStrategy);
 
-        $this->assertSame([], $firstFit->pack([], $package));
+        $this->assertSame([], $firstFit->pack([], $packageDetails));
     }
 
     public function testPackNotFittingItem()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
         $item = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
 
         $fittingStrategy
@@ -34,13 +34,13 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
 
         $firstFit = new FirstFit($fittingStrategy);
 
-        $this->assertFalse($firstFit->pack([$item], $package));
+        $this->assertFalse($firstFit->pack([$item], $packageDetails));
     }
 
     public function testPackOneFittingItem()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
         $item = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
 
         $fittingStrategy
@@ -50,7 +50,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $firstFit = new FirstFit($fittingStrategy);
-        $packages = $firstFit->pack([$item], $package);
+        $packages = $firstFit->pack([$item], $packageDetails);
 
         $this->assertCount(1, $packages);
         $this->assertSame([$item], reset($packages)->getItems());
@@ -59,7 +59,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
     public function testPackTwoFittingItems()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
         $item1 = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
         $item2 = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
 
@@ -69,7 +69,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $firstFit = new FirstFit($fittingStrategy);
-        $packages = $firstFit->pack([$item1, $item2], $package);
+        $packages = $firstFit->pack([$item1, $item2], $packageDetails);
 
         $this->assertCount(1, $packages);
         $this->assertSameSorted([$item1, $item2], reset($packages)->getItems());
@@ -78,7 +78,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
     public function testPackAddsPackages()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
         $item1 = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
         $item2 = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
 
@@ -104,7 +104,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
             ->will($this->returnValue(true));
 
         $firstFit = new FirstFit($fittingStrategy);
-        $packages = $firstFit->pack([$item1, $item2], $package);
+        $packages = $firstFit->pack([$item1, $item2], $packageDetails);
 
         $this->assertCount(2, $packages);
         $this->assertSame([$item1], reset($packages)->getItems());
@@ -114,7 +114,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
     public function testPackSortsByVolumeDesc()
     {
         $fittingStrategy = $this->getMock('Lc5\FirstFit\FittingStrategy\FittingStrategyInterface');
-        $package = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
+        $packageDetails = $this->getMock('Lc5\FirstFit\PackageDetails', [], [], '', false);
 
         $smallItem = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
         $mediumItem = $this->getMock('Lc5\FirstFit\Item', [], [], '', false);
@@ -133,7 +133,7 @@ class FirstFitTest extends \PHPUnit_Framework_TestCase
         shuffle($items);
 
         $firstFit = new FirstFit($fittingStrategy);
-        $packages = $firstFit->pack($items, $package);
+        $packages = $firstFit->pack($items, $packageDetails);
 
         $this->assertCount(1, $packages);
         $this->assertSame([$bigItem, $mediumItem, $smallItem], reset($packages)->getItems());
